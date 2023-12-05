@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.fugerit.java</groupId>
+	<artifactId>fj-lib-dep</artifactId>
+
+	<version>1.0.0</version>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version-compliance>1.8</java-version-compliance>
+		<maven.compiler.source>${java-version-compliance}</maven.compiler.source>
+		<maven.compiler.target>${java-version-compliance}</maven.compiler.target>
+		<targetGroupId>org.fugerit.java</targetGroupId>
+		<targetArtifactId>fj-doc-base</targetArtifactId>
+		<targetVersion>3.2.3</targetVersion>
+	</properties>
+
+	<name>Fugerit library dependency helper</name>
+	<description>This tool helps retrieving all dependencies for a given artifact</description>
+	<url>https://github.com/fugerit-org/fj-lib-dep/</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<url>https://www.fugerit.org</url>
+		<name>Fugerit</name>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Matteo Franci a.k.a. Fugerit</name>
+			<email>m@fugerit.org</email>
+			<url>https://www.fugerit.org</url>
+			<timezone>+1</timezone>
+			<organization>Fugerit</organization>
+			<organizationUrl>https://www.fugerit.org</organizationUrl>
+			<roles>
+				<role>IT Senior Consultant</role>
+				<role>Senior Software Architect</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Daneel</name>
+			<email>d@fugerit.org</email>
+			<organization>Fugerit</organization>
+			<organizationUrl>https://www.fugerit.org</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/fugerit-org/fj-lib-dep.git</connection>
+		<developerConnection>scm:git:ssh://github.com/fugerit-org/fj-lib-dep.git</developerConnection>
+		<url>https://github.com/fugerit-org/fj-lib-dep.git</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/fugerit-org/fj-lib-dep/issues</url>
+	</issueManagement>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<dependencies>
+		
+		<dependency>
+			<groupId>${targetGroupId}</groupId>
+			<artifactId>${targetArtifactId}</artifactId>
+			<version>${targetVersion}</version>
+		</dependency>
+
+	</dependencies>
+	
+	<profiles>
+		
+		<profile>
+			
+			<id>copy-dep</id>
+
+				<build>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-dependency-plugin</artifactId>
+							<version>3.6.1</version>
+							<executions>
+								<execution>
+									<id>copy-dependencies</id>
+									<phase>package</phase>
+									<goals>
+										<goal>copy-dependencies</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+										<overWriteReleases>false</overWriteReleases>
+										<overWriteSnapshots>false</overWriteSnapshots>
+										<overWriteIfNewer>true</overWriteIfNewer>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</build>
+			
+		</profile>
+		
+	</profiles>
+	
+</project>
